@@ -24,6 +24,8 @@ jobs:
           MODULES=()
           MODULES+=("pug")
           npm install "${MODULES[@]}"
+      - name: CI
+        run: npm ci
       - name: Configure Git
         run: |
           git config --global user.name "github-gremlin"
