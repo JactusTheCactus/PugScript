@@ -35,9 +35,7 @@ function convertToPug(str) {
     }
 
     const tagMatch = line.match(/^([a-zA-Z0-9]+)\{$/);
-console.log("tag: ",tagMatch);
     const textMatch = line.match(/^"(.+?)"$/);
-console.log("text: ",textMatch);
 
     if (tagMatch) {
       const tag = tagMatch[1];
