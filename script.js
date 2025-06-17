@@ -62,9 +62,10 @@ function convertToPug(str) {
       result += `${INDENT.repeat(indentLevel)}"${text}"\n`;
     }
   }
-console.log("==Test==\n",result,"\n==Test==");
   result = result
 .replace(/([a-z0-9]*)\n\s*"(.*)"/gi,"$1 $2")
+console.log("==Test==\n",result,"\n==Test==");
+result = result
 .replace(/for \((.*) in (.*)\)/g,"each $1 in $2")
 .replace(/(?<!")(.*): (.*)(?!")/g,"$1= $2")
 .replace(/\$\{ ?(.*?) ?\}/g,"#{$1}")
