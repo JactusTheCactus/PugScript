@@ -16,8 +16,7 @@ jobs:
           node-version: "lts/*"
           cache: "npm"
       - run: |
-          npm ci
-          npm install
+          npm install --no-package-lock
           node script.js
       - name: Configure Git
         run: |
