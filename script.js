@@ -45,9 +45,10 @@ console.log("text: ",textMatch);
       indentLevel++;
       stack.push(tag);
     } else if (textMatch) {
-      const tag = tagMatch[1];
+      //const tag = tagMatch[1];
       const text = textMatch[1];
-      result += `${INDENT.repeat(indentLevel)}tag: ${tag} text: "${text}"\n`;
+      //result += `${INDENT.repeat(indentLevel)}tag: ${tag} text: "${text}"\n`;
+      result += `${INDENT.repeat(indentLevel)}text: "${text}"\n`;
     }
   }
 
