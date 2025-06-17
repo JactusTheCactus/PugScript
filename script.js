@@ -19,7 +19,7 @@ function convertToPug(str) {
     .replace(/\}/g, '\n}')// ensure braces close on new lines
     .split('\n')
 .filter(Boolean);
-console.log(lines.join("\n"))
+console.log(lines.join("\n"));
 
   const stack = [];
 
@@ -35,7 +35,9 @@ console.log(lines.join("\n"))
     }
 
     const tagMatch = line.match(/^([a-zA-Z0-9]+)\{$/);
+console.log(tagMatch);
     const textMatch = line.match(/^(".+?")$/);
+console.log(textMatch);
 
     if (tagMatch) {
       const tag = tagMatch[1];
