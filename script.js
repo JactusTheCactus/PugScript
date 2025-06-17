@@ -13,6 +13,7 @@ function convertToPug(str) {
 
   const lines = str
 .replace(/\t|(?: {2,})/g,"")
+.replace(/ *({|}) */g,"$1")
     .replace(/;/g, '')// remove semicolons
     .replace(/\{/g, '{\n')// ensure braces open on new lines
     .replace(/\}/g, '\n}')// ensure braces close on new lines
