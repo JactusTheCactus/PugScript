@@ -31,8 +31,8 @@ console.log(lines.join("\n"))
       continue;
     }
 
-    const tagMatch = line.match(/^([a-zA-Z0-9]+)\s*\{$/);
-    const textMatch = line.match(/^([a-zA-Z0-9]+)\s*\{\s*"(.+?)"\s*\}$/);
+    const tagMatch = "tag: " + line.match(/^([a-zA-Z0-9]+)\s*\{$/);
+    const textMatch = "text: " + line.match(/^([a-zA-Z0-9]+)\s*\{\s*"(.+?)"\s*\}$/);
 
     if (tagMatch) {
       const tag = tagMatch[1];
