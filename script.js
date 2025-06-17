@@ -12,9 +12,9 @@ function convertToPug(str) {
   const INDENT = '  ';
 
   const lines = str
-.replace(/\n|\t|(?: {2,})/g,"")
+.replace(/\t|(?: {2,})/g,"")
     .replace(/;/g, '')// remove semicolons
-    .replace(/\{/g, ' {\n')// ensure braces open on new lines
+    .replace(/\{/g, '{\n')// ensure braces open on new lines
     .replace(/\}/g, '\n}')// ensure braces close on new lines
     .split('\n');
 console.log(lines.join(""))
