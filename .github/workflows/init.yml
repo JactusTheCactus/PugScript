@@ -7,14 +7,22 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Use Node.js LTS
-        uses: actions/setup-node@v4
-        with:
-          node-version: "lts/*"
-          cache: "npm"
-      - run: |
-          npm init -y
-          npm install
+      - name: Check package.json
+        run: |
+          if [ ! -f package.json ]; then
+            echo "package.json not found.\n\tInitializing..."
+            npm init -y
+          else
+            echo "package.json found.\n\tContinuing..."
+          fi
+      - name: Check package-lock.json
+        run: |
+          if [ ! -f package-lock.json ]; then
+            echo "package-lock.json not found.\n\tInitializing..."
+            npm install
+          else
+            echo "package-lock.json found.\n\tContinuing..."
+          fi
       - name: Configure Git
         run: |
           git config --global user.name "github-gremlin"
