@@ -10,7 +10,7 @@ jobs:
       - name: Setup Node.JS
         uses: actions/setup-node@v4
         with:
-          node-version: "*/lts"
+          node-version: "lts/*"
       - name: Initialize package.json
         run: |
           if [ ! -f package.json ]; then
