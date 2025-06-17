@@ -41,14 +41,14 @@ console.log("text: ",textMatch);
 
     if (tagMatch) {
       const tag = tagMatch[1];
-      result += `${INDENT.repeat(indentLevel)}tag: ${tag}\n`;
+      result += `${INDENT.repeat(indentLevel)}${tag}\n`;
       indentLevel++;
       stack.push(tag);
     } else if (textMatch) {
       //const tag = tagMatch[1];
       const text = textMatch[1];
       //result += `${INDENT.repeat(indentLevel)}tag: ${tag} text: "${text}"\n`;
-      result += `${INDENT.repeat(indentLevel)}text: "${text}"\n`;
+      result += `${INDENT.repeat(indentLevel)}"${text}"\n`;
     }
   }
 
