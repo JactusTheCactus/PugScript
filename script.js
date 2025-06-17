@@ -19,7 +19,7 @@ fs.writeFile(file, data, (err) => {
 
 // Step 1: Load .ps file (your JS-style Pug)
 const input = fs.readFileSync('index.ps', 'utf8');
-console.log('--- Raw PugScript ---\n' + input);
+//console.log('--- Raw PugScript ---\n' + input);
 
 // Step 2: Convert pseudo-Pug to real Pug (indent-based)
 function convertToPug(str) {
@@ -67,15 +67,16 @@ function convertToPug(str) {
 .replace(/for \((.*) in (.*)\)/g,"each $1 in $2")
 .replace(/(.*): (.*)/g,"$1= $2")
 .replace(/$\{ (.*) \}/g,"#{$1}")
-
-  return result.trim();
+.trim();
+console.log(result);
+  return result;
 }
 
 // Step 3: Transpile
 const pugSource = convertToPug(input);
-console.log('--- Transpiled Pug ---\n' + pugSource);
+//console.log('--- Transpiled Pug ---\n' + pugSource);
 
 // Step 4: Compile with real Pug
 const html = htmlFormat(pug.compile(pugSource)());
-console.log('--- Compiled HTML ---\n' + html);
+//console.log('--- Compiled HTML ---\n' + html);
 writeToFile("index.html",`${html}`);
