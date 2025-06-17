@@ -1,6 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 const pug = require('pug');
+const beautify = require('js-beautify').html;
+function htmlFormat(htmlInput) {
+const htmlOutput = beautify(htmlInput, {
+  indent_with_tabs: true
+});
+}
+console.log(prettyHtml);
 function writeToFile(file,data){
 fs.writeFile(file, data, (err) => {
   if (err) {
@@ -68,6 +75,6 @@ const pugSource = convertToPug(input);
 console.log('--- Transpiled Pug ---\n' + pugSource);
 
 // Step 4: Compile with real Pug
-const html = pug.compile(pugSource)();
+const html = htmlFormat(pug.compile(pugSource)());
 console.log('--- Compiled HTML ---\n' + html);
 writeToFile("index.html",html);
