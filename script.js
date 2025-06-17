@@ -49,7 +49,7 @@ function convertToPug(str) {
       continue;
     }
 
-    const tagMatch = line.match(/^([a-zA-Z0-9, \(\)\[\]"]+)\{$/);
+    const tagMatch = line.match(/^([a-zA-Z0-9, \(\)\[\]"]+:?)\{$/);
     const textMatch = line.match(/^"(.+?)"$/);
 
     if (tagMatch) {
