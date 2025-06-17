@@ -51,6 +51,8 @@ console.log("text: ",textMatch);
       result += `${INDENT.repeat(indentLevel)}"${text}"\n`;
     }
   }
+  result = result
+.replace(/([a-z0-9]*)\n\s*(".*")/gi,"$1 \"$2\"")
 
   return result;
 }
