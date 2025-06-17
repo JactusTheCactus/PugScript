@@ -1,4 +1,4 @@
-name: script.ps Run
+name: index.ps Run
 on:
   push:
     branches:
