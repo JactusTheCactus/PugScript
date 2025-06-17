@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Check package.json
+      - name: Initialize package.json
         run: |
           if [ ! -f package.json ]; then
             echo "package.json not found.\n\tInitializing..."
@@ -15,14 +15,8 @@ jobs:
           else
             echo "package.json found.\n\tContinuing..."
           fi
-      - name: Check package-lock.json
-        run: |
-          if [ ! -f package-lock.json ]; then
-            echo "package-lock.json not found.\n\tInitializing..."
-            npm install
-          else
-            echo "package-lock.json found.\n\tContinuing..."
-          fi
+      - name: Initialize package-lock.json
+        run: npm install
       - name: Configure Git
         run: |
           git config --global user.name "github-gremlin"
