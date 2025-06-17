@@ -17,7 +17,8 @@ function convertToPug(str) {
     .replace(/;/g, '')// remove semicolons
     .replace(/\{/g, '{\n')// ensure braces open on new lines
     .replace(/\}/g, '\n}')// ensure braces close on new lines
-    .split('\n');
+    .split('\n')
+.filter(Boolean);
 console.log(lines.join("\n"))
 
   const stack = [];
