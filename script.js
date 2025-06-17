@@ -6,8 +6,8 @@ function htmlFormat(htmlInput) {
 const htmlOutput = beautify(htmlInput, {
   indent_with_tabs: true
 });
-}
-console.log(prettyHtml);
+console.log(htmlOutput);
+};
 function writeToFile(file,data){
 fs.writeFile(file, data, (err) => {
   if (err) {
