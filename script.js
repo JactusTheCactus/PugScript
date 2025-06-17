@@ -67,7 +67,7 @@ function convertToPug(str) {
 .replace(/for \((.*) in (.*)\)/g,"each $1 in $2")
 .replace(/(.*): (.*)/g,"$1= $2")
 
-  return result;
+  return result.trim();
 }
 
 // Step 3: Transpile
