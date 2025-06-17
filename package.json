@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/JactusTheCactus/PugScript/issues"
   },
-  "homepage": "https://github.com/JactusTheCactus/PugScript#readme"
+  "homepage": "https://github.com/JactusTheCactus/PugScript#readme",
+  "dependencies": {
+    "pug": "^3.0.3"
+  }
 }
