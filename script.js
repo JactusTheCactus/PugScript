@@ -77,4 +77,4 @@ console.log('--- Transpiled Pug ---\n' + pugSource);
 // Step 4: Compile with real Pug
 const html = htmlFormat(pug.compile(pugSource)());
 console.log('--- Compiled HTML ---\n' + html);
-writeToFile("index.html",html);
+writeToFile("index.html",`${html}`);
