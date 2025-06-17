@@ -17,7 +17,7 @@ function convertToPug(str) {
     .replace(/\{/g, ' {\n')// ensure braces open on new lines
     .replace(/\}/g, '\n}')// ensure braces close on new lines
     .split('\n');
-console.log(lines.join("\n"))
+console.log(lines.join(""))
 
   const stack = [];
 
