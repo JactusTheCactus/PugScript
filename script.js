@@ -36,18 +36,18 @@ console.log(lines.join("\n"));
 
     const tagMatch = line.match(/^([a-zA-Z0-9]+)\{$/);
 console.log("tag: ",tagMatch);
-    const textMatch = line.match(/^(".+?")$/);
+    const textMatch = line.match(/^"(.+?)"$/);
 console.log("text: ",textMatch);
 
     if (tagMatch) {
       const tag = tagMatch[1];
-      result += INDENT.repeat(indentLevel) + "tag: " + tag + '\n';
+      result += `${INDENT.repeat(indentLevel)}tag: ${tag}\n`;
       indentLevel++;
       stack.push(tag);
     } else if (textMatch) {
       const tag = textMatch[1];
       const text = textMatch[1];
-      result += INDENT.repeat(indentLevel) + "tag: " + tag + ' ' + "text: " + text + '\n';
+      result += `${INDENT.repeat(indentLevel)}tag: ${tag} text: "${text}"\n`;
     }
   }
 
