@@ -4,6 +4,7 @@ const pug = require('pug');
 
 // Step 1: Load .ps file (your JS-style Pug)
 const input = fs.readFileSync('index.ps', 'utf8');
+console.log('--- Raw PugScript ---\n' + input);
 
 // Step 2: Convert pseudo-Pug to real Pug (indent-based)
 function convertToPug(str) {
@@ -19,7 +20,6 @@ function convertToPug(str) {
     .replace(/\}/g, '\n}')// ensure braces close on new lines
     .split('\n')
 .filter(Boolean);
-console.log(lines.join("\n"));
 
   const stack = [];
 
