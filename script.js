@@ -1,6 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 const pug = require('pug');
+function writeToFile(file,data){
+fs.writeFile(file, data, (err) => {
+  if (err) {
+    console.error('Oops! Something went wrong:', err);
+  } else {
+    console.log(`"${file}" has been written successfully!`);
+  }
+});};
 
 // Step 1: Load .ps file (your JS-style Pug)
 const input = fs.readFileSync('index.ps', 'utf8');
@@ -62,3 +70,4 @@ console.log('--- Transpiled Pug ---\n' + pugSource);
 // Step 4: Compile with real Pug
 const html = pug.compile(pugSource)();
 console.log('--- Compiled HTML ---\n' + html);
+writeToFile("index.html",html);
