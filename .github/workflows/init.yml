@@ -14,10 +14,10 @@ jobs:
       - name: Initialize package.json
         run: |
           if [ ! -f package.json ]; then
-            echo "package.json not found.\n\tInitializing..."
+            echo -e "package.json not found.\n\tInitializing..."
             npm init -y
           else
-            echo "package.json found.\n\tContinuing..."
+            echo -e "package.json found.\n\tContinuing..."
           fi
       - name: Initialize package-lock.json
         run: |
