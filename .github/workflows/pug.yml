@@ -15,8 +15,10 @@ jobs:
         with:
           node-version: "lts/*"
           cache: "npm"
-      - run: npm ci
-      - run: npm run main
+      - run: |
+          npm ci
+          npm install
+          node script.js
       - name: Configure Git
         run: |
           git config --global user.name "github-gremlin"
