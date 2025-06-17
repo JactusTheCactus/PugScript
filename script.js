@@ -52,7 +52,7 @@ console.log("text: ",textMatch);
     }
   }
   result = result
-.replace(/([a-z0-9]*)\n\s*(".*")/gi,"$1 \"$2\"")
+.replace(/([a-z0-9]*)\n\s*"(.*)"/gi,"$1 \"$2\"")
 
   return result;
 }
