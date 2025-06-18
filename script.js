@@ -18,9 +18,7 @@ function writeToFile(file, data) {
 	});
 };
 function transpileToPug(fileInput, logs = []) {
-	// Step 1: Load .ps file (JS-style Pug)
 	const input = fs.readFileSync(path.join(".","files","input",`${fileInput}.ps`), 'utf8');
-	// Step 2: Convert pseudo-Pug to real Pug (indent-based)
 	function convertToPug(str) {
 		let result = '';
 		let indentLevel = 0;
@@ -30,13 +28,12 @@ function transpileToPug(fileInput, logs = []) {
 			.match(/<==(.*?)==>/)[1]
 			.replace(/(.*?);/g, "- $1\n")
 			.trim()
-		//console.log(variables)
 		const lines = str
 			.replace(/\t|(?: {2,})/g, "")
 			.replace(/ *({|}) */g, "$1")
-			.replace(/;/g, '')// remove semicolons
-			.replace(/\{/g, '{\n')// ensure braces open on new lines
-			.replace(/\}/g, '\n}')// ensure braces close on new lines
+			.replace(/;/g, '')
+			.replace(/\{/g, '{\n')
+			.replace(/\}/g, '\n}')
 			.split('\n')
 			.filter(Boolean);
 		const stack = [];
@@ -83,19 +80,11 @@ ${result}
 		}
 		return result;
 	}
-	// Step 3: Transpile
 	const pugSource = convertToPug(input);
-	// Step 4: Compile with real Pug
 	const html = htmlFormat(pug.compile(pugSource)());
 	writeToFile(path.join(".", "files", "output", `${fileInput}.html`), `${html}`);
-	// Step 5: Log Results
-	[
-		//`--- Raw PugScript ---\n${input}`,
-		//`--- Transpiled Pug ---\n${pugSource}`,
-		//`--- Compiled HTML ---\n${html.replace(/\t/g, " ".repeat(4))}`
-	].forEach(log => console.log(log))
 };
-const directory = path.join(".","files","input"); // Change to your target directory
+const directory = path.join(".","files","input");
 const psFiles = [];
 fs.readdir(directory, (err, files) => {
 	if (err) {
