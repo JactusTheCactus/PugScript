@@ -17,9 +17,9 @@ function writeToFile(file, data) {
 		}
 	});
 };
-function transpileToPug(fileInput, logs=[]) {
+function transpileToPug(fileInput, logs = []) {
 	// Step 1: Load .ps file (JS-style Pug)
-	const input = fs.readFileSync(`${fileInput}.ps`, 'utf8');
+	const input = fs.readFileSync(path.join(".","files","input",`${fileInput}.ps`), 'utf8');
 	// Step 2: Convert pseudo-Pug to real Pug (indent-based)
 	function convertToPug(str) {
 		let result = '';
@@ -87,7 +87,7 @@ ${result}
 	const pugSource = convertToPug(input);
 	// Step 4: Compile with real Pug
 	const html = htmlFormat(pug.compile(pugSource)());
-	writeToFile(`${fileInput}.html`, `${html}`);
+	writeToFile(path.join(".", "files", "output", `${fileInput}.html`), `${html}`);
 	// Step 5: Log Results
 	[
 		//`--- Raw PugScript ---\n${input}`,
@@ -95,7 +95,18 @@ ${result}
 		//`--- Compiled HTML ---\n${html.replace(/\t/g, " ".repeat(4))}`
 	].forEach(log => console.log(log))
 };
-[
-	"index",
-	"test"
-].forEach(fileName => transpileToPug(fileName,["test"]))
+const directory = path.join(".","files","input"); // Change to your target directory
+const psFiles = [];
+fs.readdir(directory, (err, files) => {
+	if (err) {
+		return console.error('Error reading directory:', err);
+	}
+	files.forEach(file => {
+		if (file.endsWith('.ps')) {
+			console.log(file)
+			psFiles.push(file.replace(/(.*?)\.ps/g,"$1"));
+		}
+	});
+	console.log('Found .ps files:', psFiles);
+psFiles.forEach(fileName => transpileToPug(fileName), ["test"])
+});
