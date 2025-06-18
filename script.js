@@ -97,5 +97,5 @@ fs.readdir(directory, (err, files) => {
 		}
 	});
 	console.log('Found .ps files:', psFiles);
-psFiles.forEach(fileName => transpileToPug(fileName), ["test"])
+psFiles.forEach(fileName => transpileToPug(fileName, ["test"]))
 });
