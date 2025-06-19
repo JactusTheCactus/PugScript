@@ -10,6 +10,11 @@ var string = "value";
 var array = ["first", "second", "third"];
 ==>
 ```
+```
+<==
+var object = /<num1: "first", num2: "second", num3: "third">/;
+==>
+```
 ## DOCTYPE:
 ```
 [doctype:type]

@@ -19,6 +19,14 @@ function writeToFile(file, data) {
 };
 function transpileToPug(fileInput, logs = []) {
 	const input = fs.readFileSync(path.join(".","files","input",`${fileInput}.ps`), 'utf8');
+	input = `
+${!/\[doctype:.*?\]/.test(input) ? "[doctype:html]" : ""}
+${!/html \{/.test(input) ? "html {" : ""}
+${!/body \{/.test(input) ? "body {" : ""}
+${result}
+${!/body \{/.test(input) ? "}" : ""}
+${!/html \{/.test(input) ? "}" : ""}
+`
 	function convertToPug(str) {
 		let result = '';
 		let indentLevel = 0;
@@ -27,7 +35,16 @@ function transpileToPug(fileInput, logs = []) {
 			.replace(/\n/g, "")
 			.match(/<==(.*?)==>/)[1]
 			.replace(/(.*?);/g, "- $1\n")
+			.replace(/</g, "{")
+			.replace(/>/g, "}")
+			.replace(/(?<![=])[\n\t ]*([\{\}\[\],:"])[\n\t ]*/g, "$1")
+			.replace(/([,:])/g, "$1 ")
 			.trim()
+		console.log(
+			"\n"+
+			variables
+			+"\n"
+		);
 		const lines = str
 			.replace(/\t|(?: {2,})/g, "")
 			.replace(/ *({|}) */g, "$1")
@@ -58,7 +75,7 @@ function transpileToPug(fileInput, logs = []) {
 			}
 		}
 		result = result
-			.replace(/"<=="(?:[\s\S]*)"==>"/g, "").trim()
+			.replace(/"<=="(?:[\s\S]*)"==>"/g, "")
 			.replace(/([a-z0-9]*)\n\s*"(.*)"/gi, "$1 $2")
 			.replace(/for \((.*) in (.*)\)/g, "each $1 in $2")
 			.replace(/(?<!")(.*): (.*)(?!")/g, "$1= $2")
@@ -68,7 +85,6 @@ function transpileToPug(fileInput, logs = []) {
 			.replace(/(.+?):"(.+?)"(?:, )?/gi, "$1=\"$2\", ")
 			.replace(/\(<<(.*?)(?:, )?>>\)/gi, "($1)")
 			.replace(/if \((.*?)\)/gi, "if $1")
-			.replace(/\/ ?(.*?) ?\//gi, "{$1}")
 			.trim();
 		result = `
 ${variables}
@@ -97,6 +113,5 @@ fs.readdir(directory, (err, files) => {
 			psFiles.push(file.replace(/(.*?)\.ps/g,"$1"));
 		}
 	});
-	console.log('Found .ps files:', psFiles);
 psFiles.forEach(fileName => transpileToPug(fileName, ["test"]))
 });

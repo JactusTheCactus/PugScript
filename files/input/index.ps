@@ -1,78 +1,20 @@
 <==
-var name = "Devin";
-var loggedIn = "true";
-var fruits = ["Apple", "Banana", "Cherry"];
+var char = [
+	<
+		name: "Dracula",
+		species: "Vampire"
+	>,
+	<
+		name: "Alucard",
+		species: "Dhampir"
+	>
+];
 ==>
-[doctype:html]
-html {
-	section {
-		head {
-			title {
-				"My First Pug Page"
-			}
-		};
-		body {
-			h1 {
-				"Hello, Pug!"
-			};
-			p {
-				"This is a paragraph."
-			}
-		}
-	};
-	section {
-		ul {
+b {
+	div {
+		for (c in char) {
 			li {
-				"First item"
-			};
-			li {
-				"Second item"
-			};
-			li {
-				"Third item"
-			}
-  		}
-	};
-	section {
-		a[href:"https://example.com", target:"_blank"] {
-			"Visit Example"
-		}
-	};
-	section {
-		#header.container {
-  			h1.title {
-				"Welcome"
-			}
-		}
-	};
-	section {
-		h1#header.container {
-			"Welcome"
-		}
-	};
-	section {
-		p {
-			"Hello, $/name/!"
-		}
-	};
-	section {
-		if loggedIn {
-  			p {
-				"Welcome back!"
-			}
-		};
-		else {
-  			p {
-				"Please log in."
-			}
-		}
-	};
-	section {
-		ul {
-  			for (fruit in fruits) {
-    			li {
-					"$/fruit/"
-				}
+				"$/c.name/ is a $/c.species/"
 			}
 		}
 	}
