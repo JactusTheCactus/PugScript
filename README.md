@@ -29,7 +29,7 @@ element#id.class {};
 ```
 ## INPUT:
 ```
-tag[input1:"value", input2:"value"]
+element[input1:"value", input2:"value"] {};
 ```
 ## INTERPOLATION:
 ```
