@@ -68,6 +68,7 @@ function transpileToPug(fileInput, logs = []) {
 			.replace(/(.+?):"(.+?)"(?:, )?/gi, "$1=\"$2\", ")
 			.replace(/\(<<(.*?)(?:, )?>>\)/gi, "($1)")
 			.replace(/if \((.*?)\)/gi, "if $1")
+			.replace(/\/ ?(.*?) ?\//gi, "{$1}")
 			.trim();
 		result = `
 ${variables}
