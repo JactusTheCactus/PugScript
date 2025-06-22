@@ -2,6 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const pug = require('pug');
 const beautify = require('js-beautify').html;
+function createBorder(text = "", size = 0) {
+	size = size - text.length - 2
+	const edge = {
+		l: "=".repeat(Math.floor(size / 2)),
+		r: "=".repeat(Math.ceil(size / 2))
+	}
+	return `${edge.l} ${text} ${edge.r}`
+};
 String.prototype.recReplace = function (regex, replacement) {
 	let str = this;
 	let prev;
@@ -24,7 +32,7 @@ function writeToFile(file, data) {
 		}
 	});
 };
-function transpileToPug(fileInput, logs = []) {
+function transpileToPug(fileInput) {
 	const input = fs.readFileSync(path.join(".", "files", "input", `${fileInput}.ps`), 'utf8');
 	function convertToPug(str) {
 		if (
@@ -74,11 +82,22 @@ function transpileToPug(fileInput, logs = []) {
 				.replace(/(.*?);/g, "- $1\n")
 				.replace(/</g, "{")
 				.replace(/>/g, "}")
-				.replace(/(?<![=])[\n\t ]*([\{\}\[\],:"])[\n\t ]*/g, "$1")
 				.replace(/([,:])/g, "$1 ")
 				.trim()
 			:
-			""
+			"";
+		let locals = {};
+		const varMatches = [...input.matchAll(/var\s+(\w+)\s+from\s+"(.+?\.json)";/g)];
+		for (const [, varName, fileName] of varMatches) {
+			const jsonPath = path.join(".", "files", "data", fileName);
+			try {
+				const jsonData = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+				locals[varName] = jsonData;
+			} catch (err) {
+				console.error(`Failed to read ${fileName}:`, err);
+			}
+		}
+		str = str.replace(/var\s+\w+\s+from\s+".+?\.json";/g, '');
 		const lines = str
 			.replace(/\t|(?: {2,})/g, "")
 			.replace(/ *({|}) */g, "$1")
@@ -107,23 +126,6 @@ function transpileToPug(fileInput, logs = []) {
 				const text = textMatch[1];
 				result += `${INDENT.repeat(indentLevel)}"${text}"\n`;
 			}
-		}
-		function createBorder(text = "", size = 0) {
-			size = size - text.length - 2
-			const edge = {
-				l: "=".repeat(Math.floor(size / 2)),
-				r: "=".repeat(Math.ceil(size / 2))
-			}
-			return `${edge.l} ${text} ${edge.r}`
-		};
-		function test(size) {
-			return `
-${createBorder(fileInput.toUpperCase(), size)}
-${variables}
-${createBorder(fileInput.toUpperCase(), size)}
-${result}
-${createBorder(fileInput.toUpperCase(), size)}
-`.trim()
 		};
 		result = result
 			.replace(/"<=="[\s\S]*"==>"/g, "")
@@ -137,16 +139,29 @@ ${createBorder(fileInput.toUpperCase(), size)}
 			.replace(/\(<<(.*?)(?:, )?>>\)/gi, "($1)")
 			.replace(/if \((.*?)\)/gi, "if $1")
 			.trim();
-		if (logs.includes(fileInput)) {
-			console.log(test(50));
-		}
-		return `
+			variables = variables
+				.replace(/- var .\S+ from ".*?"/g, "")
+		return {
+			pugSource: `
 ${variables}
 ${result}
-`.trim();
+`.trim(),
+			locals
+		};
 	}
-	const pugSource = convertToPug(input);
-	const html = htmlFormat(pug.compile(pugSource)());
+	const { pugSource, locals } = convertToPug(input);
+	const html = htmlFormat(pug.compile(pugSource)(locals));
+	console.log(`
+${createBorder(fileInput.toUpperCase(), 50)}
+${pugSource
+	.replace(/(doctype .+?\n)/g, `${createBorder(fileInput.toUpperCase(), 50)}\n$1`)
+}
+${createBorder(fileInput.toUpperCase(), 50)}
+${html}
+${createBorder(fileInput.toUpperCase(), 50)}
+`
+.replace(/(=+ .+ =+)\n\1/g,"$1")
+)
 	writeToFile(path.join(".", "files", "output", `${fileInput}.html`), `${html}`);
 };
 const directory = path.join(".", "files", "input");
@@ -160,5 +175,5 @@ fs.readdir(directory, (err, files) => {
 			psFiles.push(file.replace(/(.*?)\.ps/g, "$1"));
 		}
 	});
-	psFiles.forEach(fileName => transpileToPug(fileName, ["index"]))
+	psFiles.forEach(fileName => transpileToPug(fileName))
 });
