@@ -2,9 +2,14 @@
 var data from "data.json";
 ==>
 div {
-	for (c in data) {
-		li {
-			"$/c.name/ is a $/c.species/"
-		};
-	};
+	 for (c in data) {
+	   	li {
+			   "$/c.name/"
+	   	};
+    ul {
+      li {
+        "$/c.species/"
+      };
+    };
+	 };
 };
