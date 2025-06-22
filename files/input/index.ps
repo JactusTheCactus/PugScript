@@ -1,13 +1,21 @@
 <==
 var data from "data.json";
 ==>
-div {
-  for (c in data) {
-    li {
-      "$/c.name/"
+table {
+  tr {
+    th {
+      "Name"
     };
-    ul {
-      li {
+    th {
+      "Species"
+    };
+  };
+  for (c in data) {
+    tr {
+      td {
+        "$/c.name/"
+      };
+      td {
         "$/c.species/"
       };
     };
