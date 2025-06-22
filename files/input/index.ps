@@ -1,17 +1,8 @@
 <==
-var char = [
-	<
-		name: "Dracula",
-		species: "Vampire"
-	>,
-	<
-		name: "Alucard",
-		species: "Dhampir"
-	>
-];
+var data from "data.json";
 ==>
 div {
-	for (c in char) {
+	for (c in data) {
 		li {
 			"$/c.name/ is a $/c.species/"
 		};
