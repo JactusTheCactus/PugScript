@@ -2,6 +2,15 @@ const fs = require('fs');
 const path = require('path');
 const pug = require('pug');
 const beautify = require('js-beautify').html;
+String.prototype.recReplace = function (regex, replacement) {
+	let str = this;
+	let prev;
+	do {
+		prev = str;
+		str = str.replace(regex, replacement);
+	} while (str !== prev);
+	return str;
+};
 function htmlFormat(htmlInput) {
 	const htmlOutput = beautify(htmlInput, {
 		indent_with_tabs: true
@@ -12,39 +21,64 @@ function writeToFile(file, data) {
 	fs.writeFile(file, data, (err) => {
 		if (err) {
 			console.error('Oops! Something went wrong:', err);
-		} else {
-			console.log(`"${file}" has been written successfully!`);
 		}
 	});
 };
 function transpileToPug(fileInput, logs = []) {
-	const input = fs.readFileSync(path.join(".","files","input",`${fileInput}.ps`), 'utf8');
-	input = `
-${!/\[doctype:.*?\]/.test(input) ? "[doctype:html]" : ""}
-${!/html \{/.test(input) ? "html {" : ""}
-${!/body \{/.test(input) ? "body {" : ""}
-${result}
-${!/body \{/.test(input) ? "}" : ""}
-${!/html \{/.test(input) ? "}" : ""}
-`
+	const input = fs.readFileSync(path.join(".", "files", "input", `${fileInput}.ps`), 'utf8');
 	function convertToPug(str) {
+		if (
+			//false
+			true
+		) {
+			if (!/body \{/.test(str)) {
+				if (/<==[\s\S]*==>/.test(str)) {
+					str = str.replace(/(<==[\s\S]*?==>)([\s\S]*)/g, `$1body {$2};`.trim())
+				}
+				else {
+					str = `${str}`
+				}
+			};
+			if (!/html \{/.test(str)) {
+				if (/<==[\s\S]*==>/.test(str)) {
+					str = str.replace(/(<==[\s\S]*?==>)([\s\S]*)/g, `$1html {$2};`.trim())
+				}
+				else {
+					str = `${str}`
+				}
+			};
+			if (!/\[doctype:.*?\]/.test(str)) {
+				if (/<==[\s\S]*==>/.test(str)) {
+					str = str.replace(/(<==[\s\S]*?==>)(.*?)/g, "$1[doctype:html]$2")
+				}
+				else {
+					str = `[doctype:html]${str}`
+				}
+			};
+			str = str
+				.replace(/(\S)(\[doctype:.*\])(\S)/g, "$1\n$2\n$3")
+				.replace(/\s{2,}/g, "\n")
+				.recReplace(/(\};?){2}/g, "$1\n$1")
+				.recReplace(/\};(\s*?)\}/g, "}$1}")
+				.replace(/\};$/g, "}")
+		}
 		let result = '';
 		let indentLevel = 0;
 		const INDENT = '  ';
-		const variables = str
-			.replace(/\n/g, "")
-			.match(/<==(.*?)==>/)[1]
-			.replace(/(.*?);/g, "- $1\n")
-			.replace(/</g, "{")
-			.replace(/>/g, "}")
-			.replace(/(?<![=])[\n\t ]*([\{\}\[\],:"])[\n\t ]*/g, "$1")
-			.replace(/([,:])/g, "$1 ")
-			.trim()
-		console.log(
-			"\n"+
-			variables
-			+"\n"
-		);
+		let variables = /<==[\s\S]*?==>/.test(str)
+			?
+			str
+				.match(/<==([\s\S]*?)==>/)[1]
+				.replace(/\s{2,}/g, " ")
+				.replace(/\n/g, "")
+				.replace(/(.*?);/g, "- $1\n")
+				.replace(/</g, "{")
+				.replace(/>/g, "}")
+				.replace(/(?<![=])[\n\t ]*([\{\}\[\],:"])[\n\t ]*/g, "$1")
+				.replace(/([,:])/g, "$1 ")
+				.trim()
+			:
+			""
 		const lines = str
 			.replace(/\t|(?: {2,})/g, "")
 			.replace(/ *({|}) */g, "$1")
@@ -74,34 +108,48 @@ ${!/html \{/.test(input) ? "}" : ""}
 				result += `${INDENT.repeat(indentLevel)}"${text}"\n`;
 			}
 		}
+		function createBorder(text = "", size = 0) {
+			size = size - text.length - 2
+			const edge = {
+				l: "=".repeat(Math.floor(size / 2)),
+				r: "=".repeat(Math.ceil(size / 2))
+			}
+			return `${edge.l} ${text} ${edge.r}`
+		};
+		function test(size) {
+			return `
+${createBorder(fileInput.toUpperCase(), size)}
+${variables}
+${createBorder(fileInput.toUpperCase(), size)}
+${result}
+${createBorder(fileInput.toUpperCase(), size)}
+`.trim()
+		};
 		result = result
-			.replace(/"<=="(?:[\s\S]*)"==>"/g, "")
+			.replace(/"<=="[\s\S]*"==>"/g, "")
 			.replace(/([a-z0-9]*)\n\s*"(.*)"/gi, "$1 $2")
 			.replace(/for \((.*) in (.*)\)/g, "each $1 in $2")
 			.replace(/(?<!")(.*): (.*)(?!")/g, "$1= $2")
 			.replace(/\$\/ ?(.*?) ?\//g, "#{$1}")
-			.replace(/"\[doctype:(.+?)\]"/g, "doctype $1")
+			.replace(/\[doctype:(.+?)\]/g, "doctype $1")
 			.replace(/([a-z])\[(.+?)\]/gi, "$1(<<$2>>)")
 			.replace(/(.+?):"(.+?)"(?:, )?/gi, "$1=\"$2\", ")
 			.replace(/\(<<(.*?)(?:, )?>>\)/gi, "($1)")
 			.replace(/if \((.*?)\)/gi, "if $1")
 			.trim();
-		result = `
+		if (logs.includes(fileInput)) {
+			console.log(test(50));
+		}
+		return `
 ${variables}
 ${result}
-	`.trim()
-		if (logs.includes(fileInput)) {
-			const header = fileInput.toUpperCase();
-			const bordered = `== ${header} ==`;
-			console.log(`${bordered}\n${result}\n${bordered}`);
-		}
-		return result;
+`.trim();
 	}
 	const pugSource = convertToPug(input);
 	const html = htmlFormat(pug.compile(pugSource)());
 	writeToFile(path.join(".", "files", "output", `${fileInput}.html`), `${html}`);
 };
-const directory = path.join(".","files","input");
+const directory = path.join(".", "files", "input");
 const psFiles = [];
 fs.readdir(directory, (err, files) => {
 	if (err) {
@@ -109,9 +157,8 @@ fs.readdir(directory, (err, files) => {
 	}
 	files.forEach(file => {
 		if (file.endsWith('.ps')) {
-			console.log(file)
-			psFiles.push(file.replace(/(.*?)\.ps/g,"$1"));
+			psFiles.push(file.replace(/(.*?)\.ps/g, "$1"));
 		}
 	});
-psFiles.forEach(fileName => transpileToPug(fileName, ["test"]))
+	psFiles.forEach(fileName => transpileToPug(fileName, ["index"]))
 });
