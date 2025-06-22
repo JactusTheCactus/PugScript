@@ -1,10 +1,90 @@
 [
     {
-        "name": "Dracula",
+        "name": "Rory Baasch",
+        "species": "Human"
+    },
+    {
+        "name": "Gabriella Belnades",
+        "species": "Changeling"
+    },
+    {
+        "name": "Mariana Cross",
+        "species": "Demon"
+    },
+    {
+        "name": "Anișoara Căpățână",
+        "species": "Human"
+    },
+    {
+        "name": "Melania Dunn",
+        "species": "Shade"
+    },
+    {
+        "name": "Mia Falk",
+        "species": "Human"
+    },
+    {
+        "name": "Lars Herlings",
+        "species": "Reaper"
+    },
+    {
+        "name": "Mischa Jäger",
+        "species": "Human"
+    },
+    {
+        "name": "Koralia Kontou",
+        "species": "Mermaid"
+    },
+    {
+        "name": "Lou LeClair",
+        "species": "Human"
+    },
+    {
+        "name": "Lucia Iulia Libo",
+        "species": "Dragon"
+    },
+    {
+        "name": "Luca Matei",
         "species": "Vampire"
     },
     {
-        "name": "Alucard",
-        "species": "Dhampir"
+        "name": "Veronica Medvedeva",
+        "species": "Changeling"
+    },
+    {
+        "name": "Samantha Pryor",
+        "species": "Human"
+    },
+    {
+        "name": "Dollie Rye",
+        "species": "Siren"
+    },
+    {
+        "name": "Ciara Bán Róin",
+        "species": "Selkie"
+    },
+    {
+        "name": "Sophia Samara",
+        "species": "Harpy"
+    },
+    {
+        "name": "Sadie Sharpe",
+        "species": "Human"
+    },
+    {
+        "name": "Joanna Tuttle",
+        "species": "Changeling"
+    },
+    {
+        "name": "Cătălina Vlachou",
+        "species": "Changeling"
+    },
+    {
+        "name": "Aurora Văduva",
+        "species": "Huldra"
+    },
+    {
+        "name": "Allison Webb",
+        "species": "Changeling"
     }
 ]
