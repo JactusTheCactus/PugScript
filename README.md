@@ -15,6 +15,12 @@ var array = ["first", "second", "third"];
 var object = /<num1: "first", num2: "second", num3: "third">/;
 ==>
 ```
+## EXTERNAL DATA:
+```
+<==
+var data from "data.json";
+==>
+```
 ## DOCTYPE:
 ```
 [doctype:type]
