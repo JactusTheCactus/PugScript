@@ -1,90 +1,136 @@
 [
-    {
-        "name": "Rory Baasch",
-        "species": "Human"
-    },
-    {
-        "name": "Gabriella Belnades",
-        "species": "Changeling"
-    },
-    {
-        "name": "Mariana Cross",
-        "species": "Demon"
-    },
-    {
-        "name": "Anișoara Căpățână",
-        "species": "Human"
-    },
-    {
-        "name": "Melania Dunn",
-        "species": "Shade"
-    },
-    {
-        "name": "Mia Falk",
-        "species": "Human"
-    },
-    {
-        "name": "Lars Herlings",
-        "species": "Reaper"
-    },
-    {
-        "name": "Mischa Jäger",
-        "species": "Human"
-    },
-    {
-        "name": "Koralia Kontou",
-        "species": "Mermaid"
-    },
-    {
-        "name": "Lou LeClair",
-        "species": "Human"
-    },
-    {
-        "name": "Lucia Iulia Libo",
-        "species": "Dragon"
-    },
-    {
-        "name": "Luca Matei",
-        "species": "Vampire"
-    },
-    {
-        "name": "Veronica Medvedeva",
-        "species": "Changeling"
-    },
-    {
-        "name": "Samantha Pryor",
-        "species": "Human"
-    },
-    {
-        "name": "Dollie Rye",
-        "species": "Siren"
-    },
-    {
-        "name": "Ciara Bán Róin",
-        "species": "Selkie"
-    },
-    {
-        "name": "Sophia Samara",
-        "species": "Harpy"
-    },
-    {
-        "name": "Sadie Sharpe",
-        "species": "Human"
-    },
-    {
-        "name": "Joanna Tuttle",
-        "species": "Changeling"
-    },
-    {
-        "name": "Cătălina Vlachou",
-        "species": "Changeling"
-    },
-    {
-        "name": "Aurora Văduva",
-        "species": "Huldra"
-    },
-    {
-        "name": "Allison Webb",
-        "species": "Changeling"
-    }
+	{
+		"name": "Rory Baasch",
+		"species": "Human",
+		"pob": ["Vancouver", "British Columbia", "Canada"],
+		"lang": ["English"]
+	},
+	{
+		"name": "Gabriella Belnades",
+		"species": "Changeling",
+		"pob": ["Silver City", "New Mexico", "USA"],
+		"lang": ["Spanish", "English", "American Sign Language"]
+	},
+	{
+		"name": "Mariana Cross",
+		"species": "Demon",
+		"pob": ["River Styx", "Circle #5", "Hell"],
+		"lang": ["Latin", "English"]
+	},
+	{
+		"name": "Anișoara Căpățână",
+		"species": "Human",
+		"pob": ["Bucharest", "București – Ilfov", "Romania"],
+		"lang": ["Romanian", "English"]
+	},
+	{
+		"name": "Melania Dunn",
+		"species": "Shade",
+		"pob": ["Germany"],
+		"lang": ["German", "English"]
+	},
+	{
+		"name": "Mia Falk",
+		"species": "Human",
+		"pob": ["Sweden"],
+		"lang": ["Swedish", "English"]
+	},
+	{
+		"name": "Lars Herlings",
+		"species": "Reaper",
+		"pob": ["Netherlands"],
+		"lang": ["Dutch", "English"]
+	},
+	{
+		"name": "Mischa Jäger",
+		"species": "Human",
+		"pob": ["Passau", "Lower Bavaria", "Germany"],
+		"lang": ["German", "Czech", "English"]
+	},
+	{
+		"name": "Koralia Kontou",
+		"nameAlt": "Κοραλία Κοντού",
+		"species": "Mermaid",
+		"pob": ["Greece"],
+		"lang": ["Greek", "English"]
+	},
+	{
+		"name": "Lou LeClair",
+		"species": "Human",
+		"pob": ["Quebec", "Canada"],
+		"lang": ["French", "English", "Spanish"]
+	},
+	{
+		"name": "Lucia Iulia Libo",
+		"species": "Dragon",
+		"pob": ["Roman Republic"],
+		"lang": ["Vulgar Latin", "Old English", "Modern English"]
+	},
+	{
+		"name": "Luca Matei",
+		"species": "Vampire",
+		"pob": ["Constanța", "Constanța County", "Romania"],
+		"lang": ["Romanian", "English"]
+	},
+	{
+		"name": "Veronica Medvedeva",
+		"species": "Changeling",
+		"pob": ["Stavropol", "Stavropol Krai", "Russian Federation"],
+		"lang": ["Russian", "Georgian", "English"]
+	},
+	{
+		"name": "Samantha Pryor",
+		"species": "Human",
+		"pob": ["St. Pierre and Miquelon", "France"],
+		"lang": ["French", "English"]
+	},
+	{
+		"name": "Dollie Rye",
+		"species": "Siren",
+		"pob": ["Aberdeen", "Scotland"],
+		"lang": ["English"]
+	},
+	{
+		"name": "Ciara Bán Róin",
+		"species": "Selkie",
+		"pob": ["County Kerry", "Munster", "Ireland"],
+		"lang": ["Irish", "English"]
+	},
+	{
+		"name": "Sophia Samara",
+		"nameAlt": "Σοφία Σαμαρά",
+		"species": "Harpy",
+		"pob": ["Greece"],
+		"lang": ["Greek", "English"]
+	},
+	{
+		"name": "Sadie Sharpe",
+		"species": "Human",
+		"pob": ["London", "Greater London", "England"],
+		"lang": ["English"]
+	},
+	{
+		"name": "Joanna Tuttle",
+		"species": "Changeling",
+		"pob": ["Smallingerland", "Friesland", "Netherlands"],
+		"lang": ["West Frisian", "Dutch", "English"]
+	},
+	{
+		"name": "Cătălina Vlachou",
+		"species": "Changeling",
+		"pob": ["Romania"],
+		"lang": ["Romanian", "English"]
+	},
+	{
+		"name": "Aurora Văduva",
+		"species": "Huldra",
+		"pob": ["Constanța", "Constanța County", "Romania"],
+		"lang": ["Romanian", "English"]
+	},
+	{
+		"name": "Allison Webb",
+		"species": "Changeling",
+		"pob": ["Newcastle", "New South Wales", "Australia"],
+		"lang": ["English"]
+	}
 ]
