@@ -138,7 +138,12 @@ function transpileToPug(fileInput) {
 			.replace(/(.+?):"(.+?)"(?:, )?/gi, "$1=\"$2\", ")
 			.replace(/\(<<(.*?)(?:, )?>>\)/gi, "($1)")
 			.replace(/if \((.*?)\)/gi, "if $1")
+			.replace(/(#\{.*?)(?<!\.(?:join|atIndex|at))\((.*?)\)(.*?\})/g, "$1[$2]$3")
+			.replace(/\.join\((.*?)\)/g, ".filter(Boolean).join($1)")
+			.replace(/(\w*?)\((\d+)\)/g, "$1[$2]")
+			.replace(/#\{(.*?) \? (.*?) = (.*?)\}/g, "#{$1 ? $2 : $3}")
 			.trim();
+			console.log(result)
 			variables = variables
 				.replace(/- var .\S+ from ".*?"/g, "")
 		return {
