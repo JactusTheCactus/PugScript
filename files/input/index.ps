@@ -1,23 +1,86 @@
 <==
 var data from "data.json";
 ==>
-table {
-  tr {
-    th {
-      "Name"
-    };
-    th {
-      "Species"
-    };
-  };
-  for (c in data) {
-    tr {
-      td {
-        "$/c.name/"
-      };
-      td {
-        "$/c.species/"
-      };
-    };
-  };
+head {
+	link[rel:"stylesheet", href:"../style/style.css"] {};
+};
+body {
+	table {
+		tr {
+			th {
+				li {
+					"Name"
+				};
+			};
+			th {
+				li {
+					"Species"
+				};
+			};
+			th {
+				li {
+					"Place of Birth"
+				};
+			};
+			th {
+				li {
+					"Spoken Languages"
+				};
+			};
+		};
+		for (c in data) {
+			tr {
+				if (c.name) {
+					td {
+						li {
+							"$/c.name/"
+						};
+						if (c.nameAlt) {
+							li {
+								code {i {
+									"$/c.nameAlt/"
+								};};
+							};
+						};
+					};
+				};
+				if (c.species) {
+					td {
+						"$/c.species/"
+					};
+				};
+				td {
+					if (c.pob) {
+						if (c.pob[0]) {
+							for (i in c.pob) {
+								li {
+									"$/i/$/i != c.pob.at(-1) ? ',' : ''/"
+								};
+							};
+						};
+					};
+				};
+				td {
+					if (c.lang) {
+						if (c.lang[0]) {
+							for (i in c.lang) {
+								if i == c.lang[0] {
+									li {
+										b {
+											"$/i/"
+										};
+									};
+								};
+								else {
+									li {
+										"$/i/$/i != c.lang.at(-1) ? ',' : ''/"
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
 };
